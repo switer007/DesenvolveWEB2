@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --bg-branco: #FFF;
+}
+.navbar-brand img {
+    height: 50px;
+}
+#barranav {
+    position:sticky; /* fixa a barra no topo*/
+    top: 0;
+    z-index: 10;
+}
+/* #video_back {
+    position: relative;
+    top: 50%;
+} */
+iframe{
+    /* position: relative; */
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: 350px;
+    z-index: 0;
+    /* transform: translateX(-50%) translateY(-50%); */
+    pointer-events: none; /* Desativa interações com o video */
+}
+#camada_azul {
+    background-image: linear-gradient(to right, #03588C, rgba(3,88,140,0.2));
+}

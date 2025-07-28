@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Tags para Otimizar o site nos mecanismos de busca-->
+    <!-- Search Engine Optimization (SEO)-->
+    <meta charset="UTF-8">
+    <meta name="description" content="Página feita em sala de aula HTML/CSS">
+    <meta name="keywords" content="HTML, CSS, Senac, Curso Técnico em Informática, TI36">
+    <meta name="author" content="Ataliba">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="folha/style.css">
+    <title>Amigo Bicho</title>
+</head>
+<body>
+    <!--
+        <main>    - conteúdo principal da página
+        <header>  - cabeçalho da página
+        <nav>     - navegação
+        <section> - seção com conteúdo
+        <article> - conteúdo ou artigo
+        <aside>   - conteúdo secundário
+        <footer>  - rodapé
+            #### Entidades HTML ####
+        &reg;     - símbolo de marca registrada
+        &copy;    - símbolo copyright
+        &nbsp;    - espaço em branco
+        &amp;     - símbolo do & (e comercial)
+    -->
+    <main>
+        <nav>
+            <ul><!-- lista não ordenada -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cuidados.html">Cuidados</a></li>
+                <li><a href="curiosidades.html">Curiosidades</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <header><!-- cabeçalho da página-->
+            <h1>Cuidados com o Amigo Bicho</h1>
+        </header>
+        <hr><!-- linha usada para separar conteúdos (Horizontal Rule)-->
+        <section>
+            <article>
+                <h2>Contato</h2>
+                <form action="#" method="post">
+                    <label>Nome:</label><br>
+                    <input type="text" value="Digite seu nome" name="nome"><br>
+                    <label>E-mail:</label><br>
+                    <input type="email" value="Digite seu e-mail" name="email"><br>
+                    <label>Mensagem:</label><br>
+                    <textarea rows="4" cols="50" name="mensagem">Digite sua mensagem</textarea><br>
+                    <input type="submit" value="Enviar mensagem">
+                </form>
+            </article>
+        </section>
+        <hr>
+        <footer>
+            <h6>Desenvolvido por &reg; &copy; Bicho Amigo &#129409;</h6>
+        </footer>
+    </main>
+</body>
+</html>
