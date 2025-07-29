@@ -117,7 +117,7 @@
                             <div class="row g-3">
                                 <div class="col-sm">
                                     <label for="senhaUsuario" class="form-label">Senha</label>
-                                    <p class="form-control"><?= "...".subtr($usuario['emailUsuario'], 10, 8)."..."?></p>
+                                    <p class="form-control"><?= "...".substr($usuario['senhaUsuario'], 10, 8)."..."?></p>
                                 </div>
                             </div>
                         <?php
