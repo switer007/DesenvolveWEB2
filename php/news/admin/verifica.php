@@ -1,6 +1,6 @@
 <?php
 
-sessin_start();
+session_start();
 
 //verifica se o usuário NÂO está logado
 if(!isset($_SESSION['login'])) {
