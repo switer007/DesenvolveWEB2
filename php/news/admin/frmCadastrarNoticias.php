@@ -1,6 +1,5 @@
 <?php
-    include ("verifica.php");
-    include ("../banco/conexao.php");
+    include("verifica.php");
 ?>
 
 <!DOCTYPE html>
@@ -88,47 +87,18 @@
                 </div>
                 <div class="col-md-9 border-start border-1">
                     <p><a href="frmCadastrarUsuarios.php" class="btn btn-secondary">Cadastrar usuários</a> <a href="listarUsuarios.php" class="btn btn-secondary">Listar usuários</a> <a href="frmCadastrarNoticias.php" class="btn btn-secondary">Cadastrar notícias</a> <a href="listarNoticias.php" class="btn btn-secondary">Listar notícias</a></p>
-                    <h2>Editar Usuários</h2>
-                    <?php
-                        if (isset($_GET['idUsuario'])){
-                            $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
-                            $sql = "SELECT * FROM usuarios WHERE idUsuario = '$usuario_id'";
-                            $query = mysqli_query($conexao, $sql);
-
-                            if (mysqli_num_rows($query) > 0) {
-                                $usuario = mysqli_fetch_array($query);
-                    ?>
-                    <!-- HTML -->
-                     <form action="editarUsuario.php" method="post">
-                        <input type="hidden" name="idUsuario" value="<?= $usuario['idUsuario'] ?>">
-                       <div class="row g-3">
-                            <div class="col-sm">
-                                <label for="nomeUsuario" class="form-label">Nome do Usuário</label>
-                                <input type="text" class="form-control" name="nomeUsuario" id="nomeUsuario" value="<?= $usuario['nomeUsuario'] ?>">
-                            </div>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm">
-                                <label for="emailUsuario" class="form-label">E-mail</label>
-                                <input type="text" class="form-control" name="emailUsuario" id="emailUsuario" value="<?= $usuario['emailUsuario'] ?>">
-                            </div>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm">
-                                <label for="loginUsuario" class="form-label">Login</label>
-                                <input type="text" class="form-control" name="loginUsuario" id="loginUsuario" value="<?= $usuario['loginUsuario'] ?>">
-                            </div>
-                        </div>
-                        <input type="hidden" name="senhaUsuario" id="senhaUsuario" value="<?= $usuario['senhaUsuario']?>">
-                        <button type="submit" name="editarUsuario" class="btn btn-success mt-3">Editar</button>
-                    </form>
-                     <?php
-                        }else {
-                            echo "<h5>Usuário não encontrado</h5>";
-                        }
-                    }
-                        ?>
-
+                    <h2>Cadastrar Notícia</h2>
+                    <div class="col">
+                        <!-- enctype="multipart/form-data" para upload de arquivo-->
+                        <form action="inserirNoticias.php" method="post" enctype="multipart/form-data">
+                        <label for="tituloNoticia" class="form-label">Título da Notícia</label>
+                        <input type="text" name="tituloNoticia" id="tituloNoticia" class="form=control">
+                        <label for="textoNoticia" class="form-label">Texto da Notícia</label>
+                        <textarea name="textoNoticia" id="textoNoticia" rows="10" class="form-control">Insira o texto da notícia aqui...</textarea>
+                        <label for="fotoNoticia">Foto da Notícia</label>
+                        <input type="file" name="fotoNoticia" id="fotoNoticia" class="form-control" accept="image/png, image/jpeg"><br>
+                        <button type="submit" name="cadastroNoticia" class="btn btn-secondary">Cadastrar</button>
+                        </form>
                 </div>
             </div>
 
