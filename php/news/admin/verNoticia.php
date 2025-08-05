@@ -1,6 +1,6 @@
 <?php
-    include("verifica.php");
-    include("../banco/conexao.php");
+    include ("verifica.php");
+    include ("../banco/conexao.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -69,7 +69,7 @@
             </div>
             <div class="col-md-2">
                 <div class=" text-center border border-1 rounded p-2 m-3">
-                    <h4>Dólar Hoje</h4><p><strong><?php //include ('../cotacao.php'); ?></strong></p>
+                    <h4>Dólar Hoje</h4><p><strong><?php include ('../cotacao.php'); ?></strong></p>
                 </div>
                
             </div>
@@ -87,25 +87,42 @@
                 </div>
                 <div class="col-md-9 border-start border-1">
                     <p><a href="frmCadastrarUsuarios.php" class="btn btn-secondary">Cadastrar usuários</a> <a href="listarUsuarios.php" class="btn btn-secondary">Listar usuários</a> <a href="frmCadastrarNoticias.php" class="btn btn-secondary">Cadastrar notícias</a> <a href="listarNoticias.php" class="btn btn-secondary">Listar notícias</a></p>
-                    <h2>Cadastrar Notícia</h2>
-                    <div class="col">
-                        <?php //exibe mensagem de erro, se houver
-                            if (isset($_SESSION['mensagem1'])) {
-                                echo "<div class='alert alert-success'>".$_SESSION['mensagem1']."</div>";
-                                unset($_SESSION['mensagem1']);
+                    <h2>Ver Notícias</h2>
+                    <?php
+                        if(isset($_GET['idNoticia'])) {
+                            $noticia_id = mysqli_real_escape_string($conexao, $_GET['idNoticia']);
+                            $sql = "SELECT * FROM noticias WHERE idNoticia = '$noticia_id'";
+                            $query = mysqli_query($conexao, $sql);
+
+                            if (mysqli_num_rows($query) > 0) {
+                                $noticia = mysqli_fetch_array($query);
+                                //var_dump($usuario);
+                    ?>
+                                <!-- HTML -->
+                                <div class="row g-3">
+                                    <div class="col-sm">
+                                        <label for="tituloNoticia" class="form-label">Título da Notícia</label>
+                                        <p class="form-control"><?= $noticia['tituloNoticia']?></p>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm">
+                                        <label for="textoNoticia" class="form-label">Texto da Notícia</label>
+                                        <p class="form-control"><?= substr($noticia['textoNoticia'],0 ,100)."..."?></p>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm">
+                                        <label for="fotoNoticia" class="form-label">Foto da Notícia</label>
+                                        <p class="form-control"><img src="<?= $noticia['fotoNoticia']?>" width="200px"></p>
+                                    </div>
+                                </div>
+                    <?php
+                            } else {
+                                echo "<h5>Notícia não encontrada!</h5>";
                             }
-                        ?>
-                        <!-- enctype="multipart/form-data" para upload de arquivo -->
-                        <form action="inserirNoticias.php" method="post" enctype="multipart/form-data">
-                            <label for="tituloNoticia" class="form-label">Título da Notícia</label>
-                            <input type="text" name="tituloNoticia" id="tituloNoticia" class="form-control">
-                            <label for="textoNoticia" class="form-label">Texto da Notícia</label>
-                            <textarea name="textoNoticia" id="textoNoticia" rows="10" class="form-control">Insira o texto da notícia aqui...</textarea>
-                            <label for="fotoNoticia">Foto da Notícia</label>
-                            <input type="file" name="fotoNoticia" id="fotoNoticia" class="form-control" accept="image/png, image/jpeg"><br>
-                            <button type="submit" name="cadastroNoticia" class="btn btn-secondary">Cadastrar</button>
-                        </form>
-                    </div>
+                        }
+                    ?>
                 </div>
             </div>
             <hr>

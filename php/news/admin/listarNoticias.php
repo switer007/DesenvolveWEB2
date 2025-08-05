@@ -1,6 +1,6 @@
-<?php
-    include("verifica.php");
-    include("../banco/conexao.php");
+<?php 
+    include ("verifica.php");
+    include ("../banco/conexao.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -47,7 +47,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">Painel Administrativo</a>
                 </li>
-
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Busca" aria-label="Search"/>
@@ -65,13 +64,11 @@
                 <img src="../imagens/logo.png" width="100px">
             </div>
             <div class="col-md-8">
-                
             </div>
             <div class="col-md-2">
                 <div class=" text-center border border-1 rounded p-2 m-3">
-                    <h4>Dólar Hoje</h4><p><strong><?php //include ('../cotacao.php'); ?></strong></p>
+                    <h4>Dólar Hoje</h4><p><strong><?php include ('../cotacao.php'); ?></strong></p>
                 </div>
-               
             </div>
         </div>
         <hr>
@@ -85,27 +82,49 @@
                     <h2>Painel administrativo</h2>
                     <h3>Olá, <?php echo $_SESSION['login']; ?> </h3><a href="logout.php" class="btn btn-outline-secondary">Sair</a><br>
                 </div>
-                <div class="col-md-9 border-start border-1">
+                <div class="col-md-9 border-start border-1 text-center">
                     <p><a href="frmCadastrarUsuarios.php" class="btn btn-secondary">Cadastrar usuários</a> <a href="listarUsuarios.php" class="btn btn-secondary">Listar usuários</a> <a href="frmCadastrarNoticias.php" class="btn btn-secondary">Cadastrar notícias</a> <a href="listarNoticias.php" class="btn btn-secondary">Listar notícias</a></p>
-                    <h2>Cadastrar Notícia</h2>
-                    <div class="col">
-                        <?php //exibe mensagem de erro, se houver
-                            if (isset($_SESSION['mensagem1'])) {
-                                echo "<div class='alert alert-success'>".$_SESSION['mensagem1']."</div>";
-                                unset($_SESSION['mensagem1']);
+                <!-- LISTA -->
+                <h2>Notícias Cadastradas</h2>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Texto</th>
+                                <th>Foto</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $sql = "SELECT * FROM noticias";
+                                $noticias = mysqli_query($conexao, $sql);
+                                if (mysqli_num_rows($noticias) > 0) {
+                                    foreach($noticias as $noticia) {
+                                
+                            ?>
+                            <tr>
+                                <td><?= $noticia['idNoticia']?></td>
+                                <td><?= $noticia['tituloNoticia']?></td>
+                                <td><?= substr($noticia['textoNoticia'], 0, 100)."..."?></td>
+                                <td><img src="<?= $noticia['fotoNoticia']?>" width="100px"></td>
+                                <td>
+                                    <a href="verNoticia.php?idNoticia=<?= $noticia['idNoticia']?>" class="btn btn-secondary btn-sm">Ver</a>
+                                    <a href="frmEditarNoticia.php?idNoticia=<?= $noticia['idNoticia']?>" class="btn btn-success btn-sm">Editar</a>
+                                    <form action="frmApagarNoticia.php" method="post">
+                                        <button onclick="return confirm('Tem certeza que deseja excluir?')" type="submit" name="apagarNoticia" value="<?= $noticia['idNoticia']?>" class="btn btn-danger btn-sm">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
                             }
-                        ?>
-                        <!-- enctype="multipart/form-data" para upload de arquivo -->
-                        <form action="inserirNoticias.php" method="post" enctype="multipart/form-data">
-                            <label for="tituloNoticia" class="form-label">Título da Notícia</label>
-                            <input type="text" name="tituloNoticia" id="tituloNoticia" class="form-control">
-                            <label for="textoNoticia" class="form-label">Texto da Notícia</label>
-                            <textarea name="textoNoticia" id="textoNoticia" rows="10" class="form-control">Insira o texto da notícia aqui...</textarea>
-                            <label for="fotoNoticia">Foto da Notícia</label>
-                            <input type="file" name="fotoNoticia" id="fotoNoticia" class="form-control" accept="image/png, image/jpeg"><br>
-                            <button type="submit" name="cadastroNoticia" class="btn btn-secondary">Cadastrar</button>
-                        </form>
-                    </div>
+                                } else {
+                                    echo "<h5>Nenhuma notícia cadastrada</h5>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <hr>
@@ -117,8 +136,6 @@
             <p>Copyright © 2025. Orgulhosamente feito com <i class="bi bi-heart-fill"></i> na Terra do Saci.</p>
         </div>
     </section>
-
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
 </html>

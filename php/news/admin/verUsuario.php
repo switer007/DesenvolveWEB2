@@ -2,7 +2,6 @@
     include ("verifica.php");
     include ("../banco/conexao.php");
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -90,47 +89,48 @@
                     <p><a href="frmCadastrarUsuarios.php" class="btn btn-secondary">Cadastrar usuários</a> <a href="listarUsuarios.php" class="btn btn-secondary">Listar usuários</a> <a href="frmCadastrarNoticias.php" class="btn btn-secondary">Cadastrar notícias</a> <a href="listarNoticias.php" class="btn btn-secondary">Listar notícias</a></p>
                     <h2>Ver Usuários</h2>
                     <?php
-                    if(isset($_GET['idUsuario'])) {
-                        $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
-                        $sql = "SELECT * FROM usuarios WHERE idUsuario = '$usuario_id'";
-                        $query = mysqli_query($conexao, $sql);
+                        if(isset($_GET['idUsuario'])) {
+                            $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
+                            $sql = "SELECT * FROM usuarios WHERE idUsuario = '$usuario_id'";
+                            $query = mysqli_query($conexao, $sql);
 
-                        if (mysqli_num_rows($query) > 0 ) {
-                            $usuario = mysqli_fetch_array($query);
+                            if (mysqli_num_rows($query) > 0) {
+                                $usuario = mysqli_fetch_array($query);
+                                //var_dump($usuario);
                     ?>
-                            <!-- HTML -->
-                            <div class="row g-3">
-                                <div class="col-sm">
-                                    <label for="nomeUsuario" class="form-label">Nome Completo</label>
-                                    <p class="form-control"><?= $usuario['nomeUsuario']?></p>
+                                <!-- HTML -->
+                                <div class="row g-3">
+                                    <div class="col-sm">
+                                        <label for="nomeUsuario" class="form-label">Nome Completo</label>
+                                        <p class="form-control"><?= $usuario['nomeUsuario']?></p>
+                                    </div>
                                 </div>
-                            <div class="row g-3">
-                                <div class="col-sm">
-                                    <label for="emailUsuario" class="form-label">E-mail</label>
-                                    <p class="form-control"><?= $usuario['emailUsuario']?></p>
+                                <div class="row g-3">
+                                    <div class="col-sm">
+                                        <label for="emailUsuario" class="form-label">E-mail</label>
+                                        <p class="form-control"><?= $usuario['emailUsuario']?></p>
+                                    </div>
                                 </div>
-                            <div class="row g-3">
-                                <div class="col-sm">
-                                    <label for="loginUsuario" class="form-label">Login</label>
-                                    <p class="form-control"><?= $usuario['loginUsuario']?></p>
+                                <div class="row g-3">
+                                    <div class="col-sm">
+                                        <label for="loginUsuario" class="form-label">Login</label>
+                                        <p class="form-control"><?= $usuario['loginUsuario']?></p>
+                                    </div>
                                 </div>
-                            <div class="row g-3">
-                                <div class="col-sm">
-                                    <label for="senhaUsuario" class="form-label">Senha</label>
-                                    <p class="form-control"><?= "...".substr($usuario['senhaUsuario'], 10, 8)."..."?></p>
+                                <div class="row g-3">
+                                    <div class="col-sm">
+                                        <label for="senhaUsuario" class="form-label">Senha</label>
+                                        <p class="form-control"><?= "...".substr($usuario['senhaUsuario'], 10, 8)."..."?></p>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php
-                        } else {
-                            echo "<h5>Usuário não encontrado!</h5>";
+                    <?php
+                            } else {
+                                echo "<h5>Usuário não encontrado!</h5>";
+                            }
                         }
-                    }
-                        ?>
+                    ?>
                 </div>
             </div>
-
-
-
             <hr>
         </div>
     </section>

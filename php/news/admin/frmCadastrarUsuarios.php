@@ -1,5 +1,5 @@
 <?php
-session_start();
+    include("verifica.php");
 ?>
 
 <!DOCTYPE html>
