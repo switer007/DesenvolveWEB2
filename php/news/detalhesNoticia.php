@@ -1,3 +1,6 @@
+<?php
+    include ("banco/conexao.php");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -40,6 +43,10 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-disabled="true">Agora!</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin/index.php">Painel Administrativo</a>
+                </li>
+
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Busca" aria-label="Search"/>
@@ -61,20 +68,41 @@
             </div>
             <div class="col-md-2">
                 <div class=" text-center border border-1 rounded p-2 m-3">
-                    <h4>Dólar Hoje</h4><p><strong>R$ 5,20</strong></p>
+                    <h4>Dólar Hoje</h4><p><strong><?php include "cotacao.php"; ?></strong></p>
                 </div>
-               
             </div>
         </div>
         <hr>
     </div>
     </section>
-    <!-- notícia -->
-    <section id="noticia">
+    <!-- ultimas notícias -->
+    <section id="noticias">
         <div class="container">
-
-
-            <hr>
+            <?php
+                if (isset($_GET['idNoticia'])) {
+                    $noticia_id = mysqli_real_escape_string($conexao, $_GET['idNoticia']);
+                    $sql = "SELECT * FROM noticias WHERE idNoticia = '$noticia_id'";
+                    $query = mysqli_query($conexao, $sql);
+                    if (mysqli_num_rows($query) > 0) {
+                        $noticia = mysqli_fetch_assoc($query);
+            ?>
+            <div class="row align-itens-center">
+                <div class="col">
+                    <h2><?= htmlspecialchars($noticia['tituloNoticia'])?></h2>
+                    <img src="<?= substr($noticia['fotoNoticia'], 3) ?>" class="d-block w-75">
+                    <p><?= nl2br($noticia['textoNoticia'])?></p>
+                </div>
+                <div>
+                    <a href="javascript:history.go(-1);" class="btn btn-outline-secondary">Voltar</a>
+                </div>
+            </div>
+            <?php
+                } else {
+                    echo "<h5>Nenhuma notícia cadastrada.</h5>";
+                }
+            }
+            ?>
+        <hr>    
         </div>
     </section>
     <!-- rodapé -->
